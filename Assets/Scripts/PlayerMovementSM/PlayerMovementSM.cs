@@ -40,7 +40,7 @@ public class PlayerMovementSM : MonoBehaviour
         //idleState.OnInitialize(this);
         movingState = new MovingState(this);
         stuntState = new StuntState(this);
-        _currentState = movingState;
+        CurrentState = movingState;
     }
 
     // Update is called once per frame

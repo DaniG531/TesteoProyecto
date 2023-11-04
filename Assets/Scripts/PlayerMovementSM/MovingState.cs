@@ -21,7 +21,11 @@ public class MovingState : ActionState
 	{
         GameObject camera = GameObject.Find("Camera");
         cameraTransform = camera.transform;
-		
+		m_rb = _player.GetComponent<Rigidbody>();
+		if (m_rb == null)
+		{
+			m_rb = _player.gameObject.AddComponent<Rigidbody>();
+		}
 	}
 
 	public override void OnExit()
@@ -33,7 +37,7 @@ public class MovingState : ActionState
 	{
 		moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 		moveDir = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * moveDir;
-		moveDir = moveDir.normalized * m_currSpeed;
+		moveDir = moveDir.normalized * m_currSpeed * Time.deltaTime;
 
 		moveDir.y = m_rb.velocity.y;
 		m_rb.velocity = moveDir;

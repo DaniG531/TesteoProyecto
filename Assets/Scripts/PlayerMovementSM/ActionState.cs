@@ -6,7 +6,7 @@ public abstract class ActionState
 {
 
     public PlayerMovementSM _player;
-    public float m_currSpeed = 0.0f;
+    public float m_currSpeed = 1.0f;
     public float m_rotataionSpeed = 6.0f;
     public Rigidbody m_rb;
     public Transform cameraTransform;

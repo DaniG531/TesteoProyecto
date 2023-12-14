@@ -2,19 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ActionState
+public abstract class ActionState : MonoBehaviour
 {
 
     public PlayerMovementSM _player;
-    public float m_currSpeed = 1.0f;
-    public float m_rotataionSpeed = 6.0f;
-    public Rigidbody m_rb;
-    public Transform cameraTransform;
-    public Vector3 moveDir = Vector3.zero;
+    
 
     public ActionState(PlayerMovementSM player)
     {
-        _player = player;
+        //_player = player;
     }
 
     public virtual void setEntity(PlayerMovementSM player)

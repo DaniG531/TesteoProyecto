@@ -6,11 +6,20 @@ public class PlayerMovementSM : MonoBehaviour
 {
     ActionState _currentState;
 
-    //Todos los estados
+    [Header("Needed Components.")]
     public ActionState movingState;
     public ActionState stuntState;
 
-    //Variables
+    [Header("Needed Components.")]
+    public CharacterController charController;
+
+
+    [Header("Needed Variants.")]
+    public Vector3 playerVelocity;
+    [Range(0, 10)] [SerializeField] public float stamina;
+    [SerializeField] public bool canRun;
+    public Vector3 move;
+
 
     ActionState CurrentState
     {
@@ -33,21 +42,29 @@ public class PlayerMovementSM : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+
+    }
     // Start is called before the first frame update
     void Start()
     {
         //idleState = gameObject.AddComponent<IdleState>();
         //idleState.OnInitialize(this);
-        movingState = new MovingState(this);
-        stuntState = new StuntState(this);
+        //movingState = new MovingState(this);
+        //stuntState = new StuntState(this);
         CurrentState = movingState;
+
+        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         CurrentState = CurrentState.OnUpdate();
-        Debug.Log(CurrentState);
+        //Debug.Log(CurrentState);
     }
     public void DestroySelf()
     {

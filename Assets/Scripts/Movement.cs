@@ -17,11 +17,12 @@ public class Movement : MonoBehaviour
     private float gravityValue = -50.0f;
 
     [Header("Stamina.")]
-    [Range(0, 5)] [SerializeField] float stamina;
+    [Range(0, 10)] [SerializeField] float stamina;
+    [SerializeField] bool canRun;
 
     private void Start()
     {
-        stamina = 5;
+        stamina = 10;
     }
 
     void Update()
@@ -42,21 +43,23 @@ public class Movement : MonoBehaviour
             gameObject.transform.forward = move;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
+        if (Input.GetKey(KeyCode.LeftShift) && canRun)
         {
             controller.Move(move * Time.deltaTime * playerRunSpeed);
             stamina -= 3.0f * Time.deltaTime;
             if (stamina <= 0)
             {
                 stamina = 0;
+                canRun = false;
             }
         }
         else
         {
             stamina += 1.0f*Time.deltaTime;
-            if (stamina >= 4.9)
+            if (stamina >= 9.9)
             {
-                stamina = 5;
+                stamina = 10;
+                canRun = true;
             }
             
         }
@@ -65,7 +68,19 @@ public class Movement : MonoBehaviour
         // Changes the height position of the player..
         if (Input.GetButtonDown("Jump") && groundedPlayer)
         {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            if (stamina < 3)
+            {
+                return;
+            }
+            else
+            {
+                if (canRun)
+                {
+                    stamina -= 3.0f;
+                    playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+                }
+            }
+            
         }
 
         
